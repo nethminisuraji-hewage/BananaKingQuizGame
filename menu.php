@@ -20,8 +20,12 @@ $username = $_SESSION['username'];
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Extra Title Container -->
+    <div class="extratitle-container">
+        <h1 class="extra">Welcome to BANANA KING, <?php echo htmlspecialchars($username); ?>!</h1>
+    </div>
+
     <div class="menu-container">
-        <h1>Welcome to Banana King, <?php echo htmlspecialchars($username); ?>!</h1>
         <form method="POST" action="choose_level.php">
             <button class="menu-btn play-btn">Play Game</button>
         </form>
