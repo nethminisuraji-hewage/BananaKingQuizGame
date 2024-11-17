@@ -3,7 +3,7 @@ session_start();
 
 // Redirect to login if not logged in
 if (!isset($_SESSION['username'])) {
-    header("Location: index.php");
+    header("Location: index.html");
     exit();
 }
 
@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['level'])) {
     // Re-initialize gameplay variables when the level changes
     $_SESSION['score'] = 0;
     $_SESSION['lives'] = 5; 
-    $_SESSION['round'] = 1; 
+    $_SESSION['round'] = 1;
 }
 
 // Check if session variables are properly set
@@ -39,7 +39,7 @@ $response = file_get_contents($apiUrl);
 $data = json_decode($response, true);
 
 $questionImage = $data['question'];
-$solution = $data['solution']; // Use this for answer validation
+$solution = $data['solution'];
 $_SESSION['solution'] = $solution;
 
 $username = $_SESSION['username'];
