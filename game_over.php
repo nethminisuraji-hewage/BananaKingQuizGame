@@ -17,9 +17,13 @@ session_destroy();
     <div class="game-container">
         <h1>Game Over!</h1>
         <p>Your Final Score: <?php echo $finalScore; ?></p>
-        <form method="POST" action="menu.php">
-            <button class="exit-button">Return to Home</button>
-        </form>
+        <button id="return-home-button" class="exit-button">Return to Home</button>
     </div>
+
+    <script>
+        document.getElementById('return-home-button').addEventListener('click', function() {
+            window.location.href = 'menu.php';
+        });
+    </script>
 </body>
 </html>
