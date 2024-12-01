@@ -17,7 +17,7 @@ session_destroy();
     <div class="game-container">
         <h1>Game Over!</h1>
         <p>Your Final Score: <?php echo $finalScore; ?></p>
-        <button id="return-home-button" class="exit-button">Return to Home</button>
+        <button id="return-home-button" class="ex-btn">Return to Home</button>
     </div>
 
     <script>
