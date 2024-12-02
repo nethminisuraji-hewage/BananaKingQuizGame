@@ -91,7 +91,7 @@ $username = $_SESSION['username'];
                     <button 
                         name="answer" 
                         value="<?php echo $i; ?>" 
-                        class="answer-button">
+                        class="answer-button" 
                         data-answer="<?php echo $i; ?>" 
                         data-correct="<?php echo $i == $solution ? 'true' : 'false'; ?>">
                         <?php echo $i; ?>
