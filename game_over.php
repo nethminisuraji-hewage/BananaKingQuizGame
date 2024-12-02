@@ -1,6 +1,6 @@
 <?php
 session_start();
-$finalScore = $_SESSION['score'];
+$finalScore = $_SESSION['score'] ?? 0; // Handle case where score might not exist
 
 // Reset session variables for a new game
 session_destroy();
@@ -16,18 +16,8 @@ session_destroy();
 <body>
     <div class="game-container">
         <h1>Game Over!</h1>
-        <p>Your Final Score: <?php echo $finalScore; ?></p>
-<<<<<<< HEAD
-        <button id="return-home-button" class="ex-btn">Return to Home</button>
-=======
-        <button id="return-home-button" class="exit-button">Return to Home</button>
->>>>>>> eabaa4fe4f2374b8f9db1452c7ae6a5654b80496
+        <p>Your Final Score: <strong><?php echo $finalScore; ?></strong></p>
+        <a href="menu.php" class="ex-btn">Return to Home</a>
     </div>
-
-    <script>
-        document.getElementById('return-home-button').addEventListener('click', function() {
-            window.location.href = 'menu.php';
-        });
-    </script>
 </body>
 </html>
