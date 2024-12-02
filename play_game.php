@@ -88,7 +88,14 @@ $username = $_SESSION['username'];
         <div class="answers">
             <?php for ($i = 0; $i <= 10; $i++): ?> 
                 <form method="POST" action="validate_answer.php">
-                    <button name="answer" value="<?php echo $i; ?>" class="answer-button"><?php echo $i; ?></button>
+                    <button 
+                        name="answer" 
+                        value="<?php echo $i; ?>" 
+                        class="answer-button">
+                        data-answer="<?php echo $i; ?>" 
+                        data-correct="<?php echo $i == $solution ? 'true' : 'false'; ?>">
+                        <?php echo $i; ?>
+                    </button>
                 </form>
             <?php endfor; ?>
         </div>
@@ -102,5 +109,30 @@ $username = $_SESSION['username'];
             </form>
         </div>
     </div>
+
+    <script>
+        document.querySelectorAll('.answer-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault(); // Prevent immediate form submission
+
+                const correctAnswer = document.querySelector('[data-correct="true"]');
+                const selectedAnswer = e.target;
+
+                // Highlight selected answer
+                if (selectedAnswer.dataset.correct === 'true') {
+                    selectedAnswer.style.backgroundColor = 'green'; // Correct answer
+                } else {
+                    selectedAnswer.style.backgroundColor = 'red'; // Wrong answer
+                    correctAnswer.style.backgroundColor = 'green'; // Highlight the correct answer
+                }
+
+                // Delay form submission to display the result
+                setTimeout(() => {
+                    selectedAnswer.closest('form').submit();
+                }, 2000);
+            });
+        });
+    </script>
+
 </body>
 </html>
