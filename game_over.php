@@ -3,7 +3,7 @@ session_start();
 $finalScore = $_SESSION['score'] ?? 0; // Handle case where score might not exist
 
 // Reset session variables for a new game
-session_destroy();
+//session_destroy();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +17,9 @@ session_destroy();
     <div class="game-container game-over">
         <h1>Game Over!</h1>
         <p>Your Final Score: <strong><?php echo $finalScore; ?></strong></p>
-        <a href="menu.php" class="ex-btn">Return to Home</a>
+        <form method="POST" action="menu.php">
+            <button class="ex-btn">Return to Menu</button>
+        </form>
     </div>
 </body>
 </html>
