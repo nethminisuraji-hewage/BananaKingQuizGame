@@ -1,19 +1,13 @@
 <?php
 session_start();
 
-// Reset the correctness flag for the next round
-unset($_SESSION['correct']);
-
-// Check if the maximum rounds are reached
-if ($_SESSION['round'] < 5) {
-    $_SESSION['round'] += 1;
+// Increment the round if lives are remaining and rounds are less than 5
+if ($_SESSION['lives'] > 0 && $_SESSION['round'] < 5) {
+    $_SESSION['round']++;
+    header("Location: play_game.php");
 } else {
-    // End the game after 5 rounds
+    // Game over if lives are 0 or 5 rounds completed
     header("Location: game_over.php");
-    exit();
 }
-
-// Redirect to the game
-header("Location: play_game.php");
 exit();
 ?>

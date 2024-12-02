@@ -27,12 +27,6 @@ if (!isset($_SESSION['score']) || !isset($_SESSION['timer']) || !isset($_SESSION
     $_SESSION['timer'] = 60; 
 }
 
-// Check if the round limit is reached
-if ($_SESSION['round'] > 5 || $_SESSION['lives'] <= 0) {
-    header("Location: game_over.php");
-    exit();
-}
-
 // Fetch question from the API
 $apiUrl = "https://marcconrad.com/uob/banana/api.php";
 $response = file_get_contents($apiUrl);
@@ -40,7 +34,7 @@ $data = json_decode($response, true);
 
 $questionImage = $data['question'];
 $solution = $data['solution'];
-$_SESSION['solution'] = $solution;
+$_SESSION['solution'] = $solution; // Store correct answer in session
 
 $username = $_SESSION['username'];
 ?>
@@ -88,14 +82,7 @@ $username = $_SESSION['username'];
         <div class="answers">
             <?php for ($i = 0; $i <= 10; $i++): ?> 
                 <form method="POST" action="validate_answer.php">
-                    <button 
-                        name="answer" 
-                        value="<?php echo $i; ?>" 
-                        class="answer-button" 
-                        data-answer="<?php echo $i; ?>" 
-                        data-correct="<?php echo $i == $solution ? 'true' : 'false'; ?>">
-                        <?php echo $i; ?>
-                    </button>
+                    <button name="answer" value="<?php echo $i; ?>" class="answer-button"><?php echo $i; ?></button>
                 </form>
             <?php endfor; ?>
         </div>
@@ -109,30 +96,5 @@ $username = $_SESSION['username'];
             </form>
         </div>
     </div>
-
-    <script>
-        document.querySelectorAll('.answer-button').forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault(); // Prevent immediate form submission
-
-                const correctAnswer = document.querySelector('[data-correct="true"]');
-                const selectedAnswer = e.target;
-
-                // Highlight selected answer
-                if (selectedAnswer.dataset.correct === 'true') {
-                    selectedAnswer.style.backgroundColor = 'green'; // Correct answer
-                } else {
-                    selectedAnswer.style.backgroundColor = 'red'; // Wrong answer
-                    correctAnswer.style.backgroundColor = 'green'; // Highlight the correct answer
-                }
-
-                // Delay form submission to display the result
-                setTimeout(() => {
-                    selectedAnswer.closest('form').submit();
-                }, 2000);
-            });
-        });
-    </script>
-
 </body>
 </html>
