@@ -14,7 +14,7 @@ session_destroy();
     <link rel="stylesheet" href="game.css">
 </head>
 <body>
-    <div class="game-container">
+    <div class="game-container game-over">
         <h1>Game Over!</h1>
         <p>Your Final Score: <strong><?php echo $finalScore; ?></strong></p>
         <a href="menu.php" class="ex-btn">Return to Home</a>
