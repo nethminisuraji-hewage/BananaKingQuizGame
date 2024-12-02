@@ -9,14 +9,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($userAnswer >= 0 && $userAnswer <= 10) {
         if ($userAnswer == $correctAnswer) {
             $_SESSION['score'] += 5; // Increment score
-            $_SESSION['correct'] = true; // Store answer correctness
         } else {
             $_SESSION['lives'] -= 1; // Deduct a life
-            $_SESSION['correct'] = false; // Store answer correctness
         }
     }
 
-    // Increment round number
+    // Check for game end conditions
+    if ($_SESSION['lives'] <= 0 || $_SESSION['round'] >= 5) {
+        // Game over: redirect to the game over page
+        header("Location: game_over.php");
+        exit();
+    }
+
+    // Increment round if the game is not over
     $_SESSION['round']++;
 
     // Redirect back to the game
@@ -24,3 +29,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
 }
 ?>
+
