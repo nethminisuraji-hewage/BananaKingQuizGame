@@ -19,12 +19,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check for game over conditions
     if ($_SESSION['lives'] <= 0 || $_SESSION['round'] >= 5) {
         // Record game stats in the database
-        $username = $_SESSION['username'] ?? "Guest";
+        $username = $_SESSION['username'];
         $finalScore = $_SESSION['score'];
         $winCondition = ($_SESSION['round'] >= 5 && $_SESSION['lives'] > 0); // Player survives all rounds
 
         // Update player's games played and wins (if applicable)
-        $query = "UPDATE players 
+        $query = "UPDATE player_form
                   SET games_played = games_played + 1, 
                       games_won = games_won + IF(?, 1, 0) 
                   WHERE username = ?";
