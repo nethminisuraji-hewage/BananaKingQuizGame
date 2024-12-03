@@ -1,10 +1,32 @@
 <?php
 session_start();
+require 'config.php';
+
 $finalScore = $_SESSION['score'] ?? 0; // Handle case where score might not exist
+$username = $_SESSION['username'];
 
 // Reset session variables for a new game
 //session_destroy();
+
+// Update player's score and games played
+$query = "UPDATE players 
+          SET score = GREATEST(score, ?), games_played = games_played + 1 
+          WHERE username = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("is", $finalScore, $username);
+$stmt->execute();
+
+// Update rank for all players
+$rankQuery = "SET @rank := 0;
+              UPDATE players 
+              SET rank = (@rank := @rank + 1) 
+              ORDER BY score DESC;";
+$conn->multi_query($rankQuery);
+
+$stmt->close();
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
