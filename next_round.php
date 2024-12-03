@@ -2,7 +2,7 @@
 session_start();
 
 // Increment the round if lives are remaining and rounds are less than 5
-if ($_SESSION['lives'] > 0 && $_SESSION['round'] < 5) {
+if ($_SESSION['lives'] > 0 && $_SESSION['round'] <= 5) {
     $_SESSION['round']++;
     header("Location: play_game.php");
 } else {
