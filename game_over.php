@@ -9,7 +9,7 @@ $username = $_SESSION['username'];
 //session_destroy();
 
 // Update player's score and games played
-$query = "UPDATE players 
+$query = "UPDATE player_form 
           SET score = GREATEST(score, ?), games_played = games_played + 1 
           WHERE username = ?";
 $stmt = $conn->prepare($query);
@@ -18,7 +18,7 @@ $stmt->execute();
 
 // Update rank for all players
 $rankQuery = "SET @rank := 0;
-              UPDATE players 
+              UPDATE player_form
               SET rank = (@rank := @rank + 1) 
               ORDER BY score DESC;";
 $conn->multi_query($rankQuery);
