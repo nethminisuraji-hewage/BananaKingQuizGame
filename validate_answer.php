@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    header("Location: game_over.php");
+    header("Location: play_game.php");
     exit();
 }
 ?>
