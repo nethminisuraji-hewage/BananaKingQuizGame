@@ -16,6 +16,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['lives'] -= 1; // Deduct a life if incorrect
     }
 
+    // Proceed to the next round
+    $_SESSION['round'] += 1; // Increment round counter
+
     // Check for game over conditions
     if ($_SESSION['lives'] <= 0 || $_SESSION['round'] >= 5) {
         // Record game stats in the database
@@ -37,8 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    // Proceed to the next round
-    $_SESSION['round'] += 1; // Increment round counter
     header("Location: game_over.php");
     exit();
 }
