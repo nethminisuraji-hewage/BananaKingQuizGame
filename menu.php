@@ -11,7 +11,11 @@ if (!isset($_SESSION['username'])) {
 $username = $_SESSION['username'];
 
 // Cookie to store the last visit time
-setcookie("last_visit", date("Y-m-d H:i:s"), time() + (86400 * 30), "/"); // Store for 30 days
+$lastVisit = date("Y-m-d H:i:s");
+setcookie("last_visit", $lastVisit, time() + (86400 * 30), "/"); // Store for 30 days
+
+// Fallback for new users
+$displayVisitMessage = isset($_COOKIE['last_visit']) ? $_COOKIE['last_visit'] : $lastVisit;
 ?>
 
 <!DOCTYPE html>
