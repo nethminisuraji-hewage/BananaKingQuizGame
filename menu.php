@@ -9,6 +9,9 @@ if (!isset($_SESSION['username'])) {
 }
 
 $username = $_SESSION['username'];
+
+// Cookie to store the last visit time
+setcookie("last_visit", date("Y-m-d H:i:s"), time() + (86400 * 30), "/"); // Store for 30 days
 ?>
 
 <!DOCTYPE html>
@@ -23,6 +26,15 @@ $username = $_SESSION['username'];
     <!-- Extra Title Container -->
     <div class="extratitle-container">
         <h1 class="extra">Welcome to BANANA KING, <?php echo htmlspecialchars($username); ?>!</h1>
+
+        <!-- Display last visit message -->
+        <?php
+        if (isset($_COOKIE['last_visit'])) {
+            echo "<p>Welcome Back! Your last visit was on: " . $_COOKIE['last_visit'] . "</p>";
+        } else {
+            echo "<p>Hey there, let's crack the code for Banana!</p>";
+        }
+        ?>
     </div>
 
     <div class="menu-container">
