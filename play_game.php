@@ -28,13 +28,13 @@ if (!isset($_SESSION['score']) || !isset($_SESSION['timer']) || !isset($_SESSION
 }
 
 // Fetch question from the API
-$apiUrl = "https://marcconrad.com/uob/banana/api.php";
-$response = file_get_contents($apiUrl);
-$data = json_decode($response, true);
+$apiUrl = "https://marcconrad.com/uob/banana/api.php"; 
+$response = file_get_contents($apiUrl); // Retrives data from the API
+$data = json_decode($response, true); // API returns the data in JSON format, which is decoded into a PHP array
 
-$questionImage = $data['question'];
-$solution = $data['solution'];
-$_SESSION['solution'] = $solution; // Store correct answer in session
+$questionImage = $data['question']; // Extracted from JSON response and used
+$solution = $data['solution']; // Extracted from JSON response and used
+$_SESSION['solution'] = $solution; // Store correct answer in session (keeping track of the correct answer during gameplay)
 
 $username = $_SESSION['username'];
 ?>
@@ -51,11 +51,11 @@ $username = $_SESSION['username'];
 
         function startTimer() {
             const timerElement = document.getElementById('timer');
-            interval = setInterval(() => {
+            interval = setInterval(() => { // Initializes a countdown which executes every second
                 if (timer <= 0) {
                     clearInterval(interval);
-                    alert(`Time's up! Your score: <?php echo $_SESSION['score']; ?>`);
-                    window.location.href = 'menu.php';
+                    alert(`Time's up! Your score: <?php echo $_SESSION['score']; ?>`); // When the timer reaches 0 
+                    window.location.href = 'game_over.php';
                 } else {
                     timerElement.innerHTML = `Timer: ${timer}s`;
                     timer--;
@@ -64,7 +64,7 @@ $username = $_SESSION['username'];
         }
     </script>
 </head>
-<body onload="startTimer()">
+<body onload="startTimer()"> <!--triggered when the page loads-->
     <div class="game-container">
         <header>
             <div class="player-name">Player: <?php echo htmlspecialchars($username); ?></div>
